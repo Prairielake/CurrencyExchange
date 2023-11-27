@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CurrencyExchange {
     private static final int INF = 1000000;
@@ -37,20 +39,24 @@ public class CurrencyExchange {
                         int[] cycle = new int[N+1];
                         for (int j = 0; j < N; j++)
                             i = next[i];
+                        Set<Integer> visited = new HashSet<>();
                         int p = i;
                         for (int m = 0; m < N; m++) {
+                            if (visited.contains(p)) {
+                                System.out.println("Error: Unable to find the arbitrage opportunity.");
+                                return;
+                            }
+                            visited.add(p);
+
                             cycle[m] = p;
                             p = next[p];
+
                             if (p == cycle[0]) {
                                 cycle[m+1] = cycle[0];
                                 System.out.println("Arbitrage opportunity:");
                                 for (int n = m; n >= 0; n--)
                                     System.out.printf("%d ", cycle[n]+1);
                                 System.out.println();
-                                return;
-                            }
-                            if (m >= N-1) {
-                                System.out.println("Error: Unable to find the arbitrage opportunity.");
                                 return;
                             }
                         }
