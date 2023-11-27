@@ -5,21 +5,25 @@ import java.util.Set;
 public class CurrencyExchange {
     private static final int INF = 1000000;
 
+    // Function to find arbitrage opportunities in currency exchange rates
     private static void findArbitrage(double[][] rates) {
         int N = rates.length;
         double[][] logRates = new double[N][N];
 
+        // Convert exchange rates to logarithmic form
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 logRates[i][j] = -Math.log(rates[i][j]);
             }
         }
 
+        // Arrays to store next currency in the arbitrage cycle and distances
         int[] next = new int[N];
         double[] dist = new double[N];
         Arrays.fill(dist, INF);
         dist[0] = 0;
 
+        // Bellman-Ford algorithm to find arbitrage opportunities
         for (int k = 0; k < N; k++) {
             boolean updated = false;
             for (int i = 0; i < N; i++){
@@ -32,14 +36,17 @@ public class CurrencyExchange {
             }
             if (!updated) break;
 
+            // Check for arbitrage opportunity after N iterations
             if (k == N-1) {
                 for (int i = 0; i < N; i++) {
                     if (dist[i] + logRates[i][next[i]] < dist[next[i]]) {
+                        // Detected arbitrage cycle
                         int[] cycle = new int[N+1];
                         for (int j = 0; j < N; j++)
                             i = next[i];
                         Set<Integer> visited = new HashSet<>();
                         int p = i;
+                        // Trace the cycle and print the result
                         for (int m = 0; m < N; m++) {
                             if (visited.contains(p)) {
                                 System.out.println("Error: Unable to find the arbitrage opportunity.");
@@ -66,12 +73,11 @@ public class CurrencyExchange {
 
         }
 
-
+        // No arbitrage opportunity found
         System.out.println("No arbitrage opportunity.");
     }
 
-
-
+    // Main method with examples of exchange rate matrices
     public static void main(String[] args) {
         double[][] ratesExample = {
                 {1, 0.741, 0.657, 1.061, 1.005},
