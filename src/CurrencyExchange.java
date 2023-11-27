@@ -74,7 +74,7 @@ public class CurrencyExchange {
 
 
     public static void main(String[] args) {
-        double[][] ratesExanple = {
+        double[][] ratesExample = {
                 {1, 0.741, 0.657, 1.061, 1.005},
                 {1.349, 1, 0.888, 1.433, 1.366},
                 {1.521, 1.126, 1, 1.614, 1.538},
@@ -95,7 +95,7 @@ public class CurrencyExchange {
                 {1.3, 0.7, 0.9, 1}
         };
 
-        findArbitrage(ratesExanple);
+        findArbitrage(ratesExample);
         findArbitrage(ratesExample2);
         findArbitrage(ratesExample3);
     }
