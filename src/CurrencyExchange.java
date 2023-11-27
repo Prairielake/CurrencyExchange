@@ -15,7 +15,6 @@ public class CurrencyExchange {
             }
         }
 
-        int[] path = new int[N + 1];
         int[] next = new int[N];
         double[] dist = new double[N];
         Arrays.fill(dist, INF);
